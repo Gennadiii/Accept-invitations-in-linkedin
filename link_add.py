@@ -26,7 +26,7 @@ while count < 100:
     for person in card:
         if 'hr' in people[num].text.lower() or 'recruiter' in people[num].text.lower() or 'рекрутер' in people[num].text.lower() \
         or 'recruitment' in people[num].text.lower() or 'open' in people[num].text.lower() or 'looking' in people[num].text.lower() or \
-        'talent' in people[num].text.lower() or 'resercher' in people[num].text.lower():
+        'talent' in people[num].text.lower() or 'resercher' in people[num].text.lower() or wanted in people[num].text.lower():
             buttons[num].click()
             count += 1
             print(str(count))
