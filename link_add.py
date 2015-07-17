@@ -6,6 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
 count = 0
+people_number = int(input('Enter a number of people you want to add: '))
 
 driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\chromedriver.exe')
 driver.implicitly_wait(60)
@@ -14,7 +15,7 @@ driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_key-
 driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_password-login']").send_keys('*')
 driver.find_element_by_xpath("//li[@class='button']/input[@id='signin']").click()
 
-while count < 100:
+while count < people_number:
     driver.get('https://www.linkedin.com/people/pymk/hub?trk=hp-feed-xconny-icon')
     driver.implicitly_wait(10)
     people = driver.find_elements_by_xpath("//div[@class='card-wrapper']//p[@class='headline']/span[@title]")
