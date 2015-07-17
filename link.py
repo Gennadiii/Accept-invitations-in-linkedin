@@ -23,7 +23,10 @@ positions = driver.find_elements_by_xpath("//p[@class='headline']")
 
 num = 0
 for name in names:
-	print('\n' + '{:*>80}'.format(name.text) + '\n' + '{:>80}'.format(positions[num].text) + '\n' + name.get_attribute('href'))
+	try:
+		print('\n' + '{:*>80}'.format(name.text) + '\n' + '{:>80}'.format(positions[num].text) + '\n' + name.get_attribute('href'))
+	except UnicodeEncodeError:
+		print('\n' + '{:*>80}'.format(name.text) + '\n' + name.get_attribute('href'))
 	num += 1
 
 action = input('\nStart accepting? ')
@@ -32,6 +35,7 @@ if action == 'no':
 	exit()
 
 for invitation in invitations:
+	driver.implicitly_wait(5)
 	invitation.click()
 	count += 1
 print(str(count) + ' invitations are accepted')
