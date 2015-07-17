@@ -5,27 +5,31 @@ from selenium.common.exceptions import NoSuchElementException
 count = 0
 
 driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\chromedriver.exe')
-driver.implicitly_wait(200)
+driver.implicitly_wait(60)
 driver.get('https://www.linkedin.com/nhome/')
-# driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_key-login']").send_keys(Keys.WIN + 'd')
-driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_key-login']").send_keys('g.mishchevskii@gmail.com')
-driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_password-login']").send_keys('1890_suMmer_32015')
+driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_key-login']").send_keys('*')
+driver.find_element_by_xpath("//div[@class='fieldgroup']/input[@id='session_password-login']").send_keys('*')
 driver.find_element_by_xpath("//li[@class='button']/input[@id='signin']").click()
 driver.get('https://www.linkedin.com/inbox/#invitations')
 try: 
-	invitation = driver.find_elements_by_xpath("//a[@class='accept accept-invite']")
+	invitations = driver.find_elements_by_xpath("//a[@class='accept accept-invite']")
 except NoSuchElementException:
-	pass
 	driver.quit()
 	print('Nothing to accept')
 	exit()
 
 names = driver.find_elements_by_xpath("//p[@class='participants']//a")
+positions = driver.find_elements_by_xpath("//p[@class='headline']")
 
+num = 0
 for name in names:
-	print(name.text + '\n' + name.get_attribute('href') + '\n')
+	print('\n' + '{:*>80}'.format(name.text) + '\n' + '{:>80}'.format(positions[num].text) + '\n' + name.get_attribute('href'))
+	num += 1
 
-input('Start accepting?')
+action = input('\nStart accepting? ')
+
+if action == 'no':
+	exit()
 
 for invitation in invitations:
 	invitation.click()
