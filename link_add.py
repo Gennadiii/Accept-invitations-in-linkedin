@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
 from selenium.webdriver.common.action_chains import ActionChains
 import os.path
+from time import sleep
 
 my_login = 'g.mishchevskii@gmail.com'
 my_password = input('Password: ')
@@ -28,33 +29,44 @@ while count < people_number:
     driver.get('https://www.linkedin.com/people/pymk/hub?trk=hp-feed-xconny-icon')
     driver.implicitly_wait(10)
 
-    people = driver.find_elements_by_xpath("//div[@class='card-wrapper']//p[@class='headline']/span[@title]")
+    positions = driver.find_elements_by_xpath("//div[@class='card-wrapper']//p[@class='headline']/span[@title]")
+    names = driver.find_elements_by_xpath("//h4[@class='name']//a[@class='title']")
     buttons = driver.find_elements_by_xpath("//div[@class='card-wrapper']//button[@data-act='request']")
     card = driver.find_elements_by_xpath("//div[@class='card-wrapper']")
     delete = driver.find_elements_by_xpath("//button[@class='bt-close']")
 
-    num = 0
-    for person in card:
+    for num in range(8):
         flag = False
+        print(num)
         for wanted in wanted_list:
-            if wanted in people[num].text.lower():
+            if wanted in positions[num].text.lower():
                 buttons[num].click()
+
+                if 'Enter' in driver.find_element_by_xpath("//div[@class='email-confirm']").text:
+                    ActionChains(driver).move_to_element(card[num]).perform()
+                    try:
+                        delete[num].click()
+                    except ElementNotVisibleException:
+                        pass
+
                 count += 1
-                print(str(count) + ' - ')
+
+                print('{:->40}'.format(str(count)))
+                try:
+                    print(names[num].text)
+                except UnicodeEncodeError:
+                    pass
                 break
             else:
                 flag = True
 
         if flag:
-            ActionChains(driver).move_to_element(person).perform()
+            ActionChains(driver).move_to_element(card[num]).perform()
             try:
                 delete[num].click()
             except ElementNotVisibleException:
                 pass
-        
-        num += 1
-        if num > 7:
-            break
+    sleep(3)
 
 driver.quit()
 exit()
