@@ -37,7 +37,6 @@ while count < people_number:
 
     for num in range(8):
         flag = False
-        print(num)
         for wanted in wanted_list:
             if wanted in positions[num].text.lower():
                 buttons[num].click()
