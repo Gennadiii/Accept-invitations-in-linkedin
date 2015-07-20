@@ -27,7 +27,7 @@ sign_in_button.click()
 
 while count < people_number:
     driver.get('https://www.linkedin.com/people/pymk/hub?trk=hp-feed-xconny-icon')
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(20)
 
     positions = driver.find_elements_by_xpath("//div[@class='card-wrapper']//p[@class='headline']/span[@title]")
     names = driver.find_elements_by_xpath("//h4[@class='name']//a[@class='title']")
@@ -43,6 +43,7 @@ while count < people_number:
 
                 if 'Enter' in driver.find_element_by_xpath("//div[@class='email-confirm']").text:
                     ActionChains(driver).move_to_element(card[num]).perform()
+                    driver.implicitly_wait(20)
                     try:
                         delete[num].click()
                     except ElementNotVisibleException:
@@ -61,6 +62,7 @@ while count < people_number:
 
         if flag:
             ActionChains(driver).move_to_element(card[num]).perform()
+            driver.implicitly_wait(20)
             try:
                 delete[num].click()
             except ElementNotVisibleException:
