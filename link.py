@@ -1,13 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
-import os.path
+from os.path import expanduser
 
 my_login = 'g.mishchevskii@gmail.com'
 my_password = input('Password: ')
 count = 0
 
-driver = webdriver.Chrome('C:\Program Files (x86)\Google\Chrome\chromedriver.exe')
+driver = webdriver.Chrome(os.path.expanduser(r'~\Dropbox\Work\Python\chromedriver.exe'))
 driver.get('https://www.linkedin.com/nhome/')
 driver.implicitly_wait(60)
 
