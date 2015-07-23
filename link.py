@@ -48,8 +48,13 @@ action = input('\nStart accepting? ')
 if action == 'no':
 	exit()
 
+driver.get('https://www.linkedin.com/inbox/#invitations')
+driver.implicitly_wait(60)
+invitations = driver.find_elements_by_xpath("//a[@class='accept accept-invite']")
+
 for invitation in invitations:
 	invitation.click()
+	driver.implicitly_wait(5)
 	count += 1
 print(str(count) + ' invitations are accepted')
 
