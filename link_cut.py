@@ -31,18 +31,11 @@ for name in names:
 		except UnicodeEncodeError:
 			print('\n' + name.get_attribute('href'))
 	num += 1
-	count += 1
 
 action = input('\nStart accepting? ')
 
-if action == 'no':
+if len(action) != 0:
 	exit()
-elif len(action) == 0:
-	for invitation in invitations:
-		invitation.click()
-		driver.implicitly_wait(5)
-		sleep(4)
-	print(str(count) + ' invitations are accepted')
 else:
 	driver.get('https://www.linkedin.com/inbox/#invitations')
 	driver.implicitly_wait(60)
@@ -51,6 +44,7 @@ else:
 		invitation.click()
 		driver.implicitly_wait(5)
 		sleep(4)
+		count += 1
 	print(str(count) + ' invitations are accepted')	
 
 driver.quit()
