@@ -7,10 +7,15 @@ from time import sleep
 count = 0
 
 driver = webdriver.Chrome(expanduser(r'~\Dropbox\Work\Python\chromedriver.exe'))
+driver.maximize_window()
 driver.get('https://www.linkedin.com/nhome/')
 driver.implicitly_wait(60)
 
 input('Let\'s roll!')
+
+driver.get('https://www.linkedin.com/inbox/#invitations')
+
+input('Start accepting?')
 
 while True:
 	driver.get('https://www.linkedin.com/inbox/#invitations')
